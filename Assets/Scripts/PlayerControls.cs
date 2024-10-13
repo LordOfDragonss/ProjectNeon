@@ -9,17 +9,7 @@ using UnityEngine.Windows;
 
 public class PlayerControls : MonoBehaviour
 {
-    private PlayerInput playerInput;
-
-    private InputAction walkAction;
-    private void Awake()
-    {
-        playerInput = GetComponent<PlayerInput>();
-        walkAction = playerInput.actions["Walk"];
-        walkAction.ReadValue<float>();
-
-        playerInput.SwitchCurrentControlScheme();
-    }
+    [SerializeField] Rigidbody2D rb;    
     public void Move(InputAction.CallbackContext context)
     {
         Debug.Log("dde");
