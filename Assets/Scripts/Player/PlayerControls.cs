@@ -11,9 +11,14 @@ public class PlayerControls : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private PlayerInput playerInput;
 
+
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private LayerMask groundLayer;
+
     private Vector2 inputVector;
 
     public float movementSpeed = 5f;
+    public float jumpHeight = 10f;
     
     private void Update()
     {
@@ -27,6 +32,12 @@ public class PlayerControls : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
+        if (IsGrounded())
+        inputVector.y = context.ReadValue<Vector2>().y * jumpHeight;
+    }
 
+    private bool IsGrounded()
+    {
+        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
     }
 }
