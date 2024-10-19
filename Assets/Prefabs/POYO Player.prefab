@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2455815956752410633}
   - component: {fileID: 7847261087804771515}
   - component: {fileID: 6019790104598645019}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: POYO Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}

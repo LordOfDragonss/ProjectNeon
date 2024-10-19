@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6440681593121829970}
   - component: {fileID: 3204929787068073360}
   - component: {fileID: 7375534950752391048}
+  - component: {fileID: 506226561553558622}
   m_Layer: 0
   m_Name: PatrolingEnemy
   m_TagString: Untagged
@@ -35,6 +36,8 @@ Transform:
   m_Children:
   - {fileID: 351909906283301994}
   - {fileID: 1072527752076144032}
+  - {fileID: 1335189278428967681}
+  - {fileID: 3925546843353594430}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4697568681127302752
@@ -173,6 +176,24 @@ MonoBehaviour:
     m_Bits: 64
   groundCheck: {fileID: 351909906283301994}
   WallCheck: {fileID: 1072527752076144032}
+  isPatroling: 1
+  isFacingRight: 1
+--- !u!114 &506226561553558622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1824322682057203219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4883c4b12e2f0624f8174eba734c6d4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ChaseDetector: {fileID: 5735846488629224515}
+  AttackDetector: {fileID: 3932516590367219884}
+  speed: 3
+  EnemyPatrol: {fileID: 7375534950752391048}
 --- !u!1 &2090099419881516588
 GameObject:
   m_ObjectHideFlags: 0
@@ -204,6 +225,62 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2763990610186453917}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4936627907358761029
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1335189278428967681}
+  - component: {fileID: 5735846488629224515}
+  m_Layer: 0
+  m_Name: Chase Detection
+  m_TagString: Untagged
+  m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1335189278428967681
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4936627907358761029}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2763990610186453917}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5735846488629224515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4936627907358761029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05e31898865b0ca4d9e1c6aa53a6dfb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <PlayerDetected>k__BackingField: 0
+  detectorOrigin: {fileID: 1335189278428967681}
+  detectorSize: {x: 2.5, y: 0.8}
+  detectorOriginOffset: {x: 0, y: 0}
+  detectionDelay: 0.3
+  detectorLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  target: {fileID: 0}
+  gizmoIdleColor: {r: 0, g: 1, b: 0, a: 0.28235295}
+  gizmoDetectedColor: {r: 1, g: 0, b: 0, a: 0.29803923}
+  showGizmos: 1
 --- !u!1 &7879107061335915080
 GameObject:
   m_ObjectHideFlags: 0
@@ -235,3 +312,59 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2763990610186453917}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8511653619197370663
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3925546843353594430}
+  - component: {fileID: 3932516590367219884}
+  m_Layer: 0
+  m_Name: AttackDetection
+  m_TagString: Untagged
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3925546843353594430
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8511653619197370663}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.5, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2763990610186453917}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3932516590367219884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8511653619197370663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05e31898865b0ca4d9e1c6aa53a6dfb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <PlayerDetected>k__BackingField: 0
+  detectorOrigin: {fileID: 3925546843353594430}
+  detectorSize: {x: 0.5, y: 0.8}
+  detectorOriginOffset: {x: 0, y: 0}
+  detectionDelay: 0.3
+  detectorLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  target: {fileID: 0}
+  gizmoIdleColor: {r: 0, g: 1, b: 0, a: 0.28235295}
+  gizmoDetectedColor: {r: 1, g: 0, b: 0, a: 0.29803923}
+  showGizmos: 1
