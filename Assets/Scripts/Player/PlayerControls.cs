@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO.IsolatedStorage;
 using Unity.VisualScripting;
 using Unity.VisualScripting.InputSystem;
 using UnityEditorInternal;
@@ -16,6 +17,7 @@ public class PlayerControls : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
 
     private Vector2 inputVector;
+    private bool isJumping;
 
     public float movementSpeed = 5f;
     public float jumpHeight = 10f;
@@ -23,6 +25,12 @@ public class PlayerControls : MonoBehaviour
     private void Update()
     {
         rb.velocity = inputVector;
+
+        if (isJumping)
+        {
+            if (IsGrounded()) isJumping = false;
+            inputVector.y -= 0.1f;
+        }
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -33,11 +41,15 @@ public class PlayerControls : MonoBehaviour
     public void Jump(InputAction.CallbackContext context)
     {
         if (IsGrounded())
-        inputVector.y = context.ReadValue<Vector2>().y * jumpHeight;
+        {
+            isJumping = true;
+            inputVector.y = context.ReadValue<Vector2>().y * jumpHeight;
+        }
     }
 
     private bool IsGrounded()
     {
+        print("fe");
         return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
     }
 }
