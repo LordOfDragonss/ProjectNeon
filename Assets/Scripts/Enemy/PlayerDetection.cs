@@ -4,14 +4,21 @@ using UnityEngine;
 
 public class PlayerDetection : MonoBehaviour
 {
+    public enum DetectionMode
+    {
+        Box, Circle
+    }
+
     [field: SerializeField]
     public bool PlayerDetected { get; private set; }
+    public DetectionMode detectionMode;
     public Vector2 DirectionToTarget => target.transform.position - detectorOrigin.position;
 
     [Header("OverlapBox Parameters")]
     [SerializeField]
     private Transform detectorOrigin;
     public Vector2 detectorSize = Vector2.one;
+    public float detectorRadius = 1f;
     public Vector2 detectorOriginOffset = Vector2.zero;
 
     public float detectionDelay = 0.3f;
@@ -39,7 +46,7 @@ public class PlayerDetection : MonoBehaviour
 
     public void PerformDetection()
     {
-        Collider2D collider = Physics2D.OverlapBox((Vector2)detectorOrigin.position + detectorOriginOffset, detectorSize, 0, detectorLayerMask);
+        Collider2D collider = GetCollider();
         if (collider != null)
         {
             PlayerDetected = true;
@@ -50,6 +57,21 @@ public class PlayerDetection : MonoBehaviour
             PlayerDetected = false;
             target = null;
         }
+
+    }
+
+    public Collider2D GetCollider()
+    {
+        switch (detectionMode)
+        {
+            case DetectionMode.Box:
+                return Physics2D.OverlapBox((Vector2)detectorOrigin.position + detectorOriginOffset, detectorSize, 0, detectorLayerMask);
+            case DetectionMode.Circle:
+                return Physics2D.OverlapCircle((Vector2)detectorOrigin.position + detectorOriginOffset, detectorRadius, detectorLayerMask);
+            default:
+                return Physics2D.OverlapBox((Vector2)detectorOrigin.position + detectorOriginOffset, detectorSize, 0, detectorLayerMask);
+        }
+
     }
 
     public void OnDrawGizmos()
@@ -57,9 +79,17 @@ public class PlayerDetection : MonoBehaviour
         if (showGizmos && detectorOrigin != null)
         {
             Gizmos.color = gizmoIdleColor;
-            if(PlayerDetected)
+            if (PlayerDetected)
                 Gizmos.color = gizmoDetectedColor;
-            Gizmos.DrawCube((Vector2)detectorOrigin.position + detectorOriginOffset, detectorSize);
+            switch (detectionMode)
+            {
+                case DetectionMode.Box:
+                    Gizmos.DrawWireCube((Vector2)detectorOrigin.position + detectorOriginOffset, detectorSize);
+                    break;
+                case DetectionMode.Circle:
+                    Gizmos.DrawWireSphere(detectorOrigin.position, detectorRadius);
+                    break;
+            }
         }
     }
 }
