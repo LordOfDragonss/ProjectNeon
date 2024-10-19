@@ -53,22 +53,28 @@ public class PlayerControls : MonoBehaviour
         }
     }
     #endregion
+
     #region Jump
     public void Jump(InputAction.CallbackContext context)
     {
         if (context.performed && jumpCount < maxJumps)
         {
-            ExecuteJump((float)context.duration);
+            ExecuteJump();
         }
+        if (context.canceled)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y / 4);
+        }
+        
     }
-    private void ExecuteJump(float jump)
+    private void ExecuteJump()
     {
         if (CheckJump())
         {
-            rb.velocity = new Vector2(rb.velocity.x, jump * jumpForce);
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             jumpCount++;
         }
-    }   
+    }
     private bool CheckJump()
     {
         return jumpCount < maxJumps - 1;

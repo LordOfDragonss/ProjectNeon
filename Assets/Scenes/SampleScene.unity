@@ -519,6 +519,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: POYO Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2455815956752410633, guid: d0df67075c4b799469e63944d4e241c7, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
