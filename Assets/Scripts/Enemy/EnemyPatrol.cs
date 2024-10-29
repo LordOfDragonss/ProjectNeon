@@ -11,8 +11,9 @@ public class EnemyPatrol : MonoBehaviour
 
     public Transform groundCheck;
     public Transform WallCheck;
+    public bool isPatroling;
 
-    bool isFacingRight = true;
+    public bool isFacingRight = true;
 
     RaycastHit2D hitGround;
     RaycastHit2D hitWall;
@@ -25,27 +26,34 @@ public class EnemyPatrol : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (hitWall.collider)
+        if (isPatroling)
         {
-            isFacingRight = !isFacingRight;
-            transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-        }
-        if (hitGround.collider)
-        {
-            if (isFacingRight)
+            if (hitWall.collider)
             {
-                rb.velocity = new Vector2(speed, rb.velocity.y);
+                isFacingRight = !isFacingRight;
+                transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+            }
+            if (hitGround.collider)
+            {
+                if (isFacingRight)
+                {
+                    rb.velocity = new Vector2(speed, rb.velocity.y);
+                }
+                else
+                {
+                    rb.velocity = new Vector2(-speed, rb.velocity.y);
+                }
             }
             else
             {
-                rb.velocity = new Vector2(-speed, rb.velocity.y);
+                isFacingRight = !isFacingRight;
+                transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
             }
-        }
-        else
-        {
-            isFacingRight = !isFacingRight;
-            transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
         }
     }
 
+    public bool IsGrounded()
+    {
+        return hitGround.collider != null;
+    }
 }
