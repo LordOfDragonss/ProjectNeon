@@ -21,6 +21,9 @@ public class PlayerControls : MonoBehaviour
     public float jumpForce = 10f;
     public int maxJumps = 2;
 
+    [Header("Form Type")]
+    public FormType formType;
+
     private int jumpCount;
 
     private void FixedUpdate()
@@ -40,7 +43,6 @@ public class PlayerControls : MonoBehaviour
     #endregion
 
     #region Rotation
-
     private void HandleRotationOnMoving(float inputValue)
     {
         if (inputValue > 0)
@@ -63,7 +65,7 @@ public class PlayerControls : MonoBehaviour
         }
         if (context.canceled)
         {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y / 4);
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y / 2);
         }
         
     }
@@ -93,6 +95,7 @@ public class PlayerControls : MonoBehaviour
     }
 
     #endregion  
+
     private void OnDrawGizmos()
     {
         if (groundCheck != null)
