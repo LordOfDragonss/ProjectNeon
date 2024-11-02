@@ -7,6 +7,6 @@ public class FormData : ScriptableObject
 {
     [SerializeField] private FormType formType;
 
-
+    
 
 }
